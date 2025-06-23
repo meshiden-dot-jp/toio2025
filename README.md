@@ -74,7 +74,7 @@
 ---
 
 ## ディレクトリ構成（予定）
-
+```
 toio2025/
 ├─ client/ # Webフロントエンド（必要な場合）
 ├─ server/ # WebSocketサーバなど（Node.jsなど）
@@ -83,6 +83,7 @@ toio2025/
 │ └─ ProjectSettings/
 ├─ README.md
 └─ .gitignore
+```
 
 
 ---
