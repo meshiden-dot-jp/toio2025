@@ -19,23 +19,42 @@
 - ターン外の操作や進みすぎたときはエラーやブレーキ処理。
 - 正しい位置に置かれない場合にもエラー検出。
 
-## 関連リンク
+## 環境構築
 
-| タイトル | URL |
-|---------|-----|
-| 技術仕様 | https://toio.github.io/toio-spec/docs/ble_high_precision_tilt_sensor/ |
-| toio SDK for Unity | https://morikatron.com/t4u/ |
-| Unity 推奨バージョン | https://unity.com/releases/editor/archive |
-| 実機との接続方法 | https://qiita.com/Teach/items/7bfd47060da4d4aab852 |
-| toio簡単接続 | https://toio.io/do/connect/ |
-| Zadig（Bluetooth） | https://zadig.akeo.ie/#google_vignette |
-| Git for Windows | https://gitforwindows.org/ |
-| UniTask | https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask |
-| Position ID 一覧 | https://toio.github.io/toio-spec/docs/hardware_position_id/ |
-| 勇者用紙 | https://toio.io/blog/img/dungeon_yusha.pdf |
-| 共有ドライブ | https://drive.google.com/drive/folders/1sSlvLBJZ6gj0R0VFqzTFui3XLFqoLcks?usp=sharing |
-| FigJam | https://www.figma.com/board/YCiYz0lZdrbkJHFZu2bzKO/toio?node-id=0-1&t=yXRAdM9hlhgMKvSG-1 |
-| 迷路の下書き | https://drive.google.com/file/d/1fVBtPaRJIM4u_SstrCaOgr0U9dsp_mDb/view?usp=sharing |
+- `git clone git@github.com:meshiden-dot-jp/toio2025.git`で任意の場所にクローンする
+- `Unity ver.2022.3.44f1 LTS`をインストールする
+- https://github.com/morikatron/toio-sdk-for-unity/blob/main/docs/download_sdk.md を参照してtoio SDK for Unity をインストールする
+- https://github.com/GlitchEnzo/NuGetForUnity/releases/tag/v4.4.0 から`NuGetForUnity.4.4.0.unitypackage`をダウンロードして、Assetsにドラックする
+- `NuGet` -> `NuGetManeger`を立ち上げ、検索欄に`websocket sharp netstandard`と入力し、インストールする
+- `server`ディレクトリで`npm start`を実行する
+- `Unity`でプロジェクトを実行する
+- `client`ディレクトリで`npm run dev`を実行する
+
+## ソースコードの編集
+
+- `toio2025`ディレクトリで`git pull`を実行する
+- ソースコードを編集する
+- `git checkout -b origin (任意の名前)`でブランチを切る
+- `git add .`でステージングする
+- `git commit -m "（作業内容）"`でコミットメッセージを書く
+- `git push origin (任意の名前)`を実行する
+
+## プルリクエストがついていたら
+
+- プルリクエストを確認
+- 問題なければ`LGTM`を記入し`main`ブランチにマージする
+
+## ディレクトリ構成（予定）
+```
+toio2025/
+├─ client/ # Webフロントエンド（必要な場合）
+├─ server/ # WebSocketサーバなど（Node.jsなど）
+├─ robot/ # Unityプロジェクト（toio制御）
+│ ├─ Assets/
+│ └─ ProjectSettings/
+├─ README.md
+└─ .gitignore
+```
 
 ## 開発進捗
 
@@ -63,48 +82,27 @@
 - [ ] 音声フィードバックの強化
 - [ ] 難易度調整オプション（マス数など）
 
-## ディレクトリ構成（予定）
-```
-toio2025/
-├─ client/ # Webフロントエンド（必要な場合）
-├─ server/ # WebSocketサーバなど（Node.jsなど）
-├─ robot/ # Unityプロジェクト（toio制御）
-│ ├─ Assets/
-│ └─ ProjectSettings/
-├─ README.md
-└─ .gitignore
-```
+## 関連リンク
+
+| タイトル | URL |
+|---------|-----|
+| 技術仕様 | https://toio.github.io/toio-spec/docs/ble_high_precision_tilt_sensor/ |
+| toio SDK for Unity | https://morikatron.com/t4u/ |
+| Unity 推奨バージョン | https://unity.com/releases/editor/archive |
+| 実機との接続方法 | https://qiita.com/Teach/items/7bfd47060da4d4aab852 |
+| toio簡単接続 | https://toio.io/do/connect/ |
+| Zadig（Bluetooth） | https://zadig.akeo.ie/#google_vignette |
+| Git for Windows | https://gitforwindows.org/ |
+| UniTask | https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask |
+| Position ID 一覧 | https://toio.github.io/toio-spec/docs/hardware_position_id/ |
+| 勇者用紙 | https://toio.io/blog/img/dungeon_yusha.pdf |
+| FigJam | https://www.figma.com/board/YCiYz0lZdrbkJHFZu2bzKO/toio?node-id=0-1&t=yXRAdM9hlhgMKvSG-1 |
 
 ## 開発チーム向け Tips
 
 - `.gitignore` を適切に設定し、`Library/`, `Temp/`, `.next/`, `node_modules/` などは除外すること。
 - GitHub プロジェクトにマージルールを設定して、プルリクエストベースの運用を推奨。
 - サードパーティとの Bluetooth 接続には Zadig の導入が必要になる場合があります。
-
-## 環境構築
-
-- `git clone `で任意の場所にクローンする
-- `Unity ver.2022.3.44f1 LTS`をインストールする
-- https://github.com/morikatron/toio-sdk-for-unity/blob/main/docs/download_sdk.md を参照してtoio SDK for Unity をインストールする
-- https://github.com/GlitchEnzo/NuGetForUnity/releases/tag/v4.4.0 から`NuGetForUnity.4.4.0.unitypackage`をダウンロードして、Assetsにドラックする
-- `NuGet` -> `NuGetManeger`を立ち上げ、検索欄に`websocket sharp netstandard`と入力し、インストールする
-- `server`ディレクトリで`npm start`を実行する
-- `Unity`でプロジェクトを実行する
-- `client`ディレクトリで`npm run dev`を実行する
-
-## ソースコードの編集
-
-- `toio2025`ディレクトリで`git pull`を実行する
-- ソースコードを編集する
-- `git checkout -b origin (任意の名前)`でブランチを切る
-- `git add .`でステージングする
-- `git commit -m "（作業内容）"`でコミットメッセージを書く
-- `git push`を実行する
-
-## プルリクエストがついていたら
-
-- プルリクエストを確認
-- 問題なければ`LGTM`を記入し`main`ブランチにマージする
 
 ## ライセンス
 
