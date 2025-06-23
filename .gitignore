@@ -1,0 +1,16 @@
+node_modules/
+.next/
+
+# Unity: 一時/ビルド/キャッシュフォルダは全て無視
+robot/Library/
+robot/Temp/
+robot/Obj/
+robot/Build/
+robot/Builds/
+robot/Logs/
+robot/MemoryCaptures/
+robot/UserSettings/
+robot/.vs/
+robot/.vscode/
+robot/.idea/
+robot/.DS_Store
