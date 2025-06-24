@@ -96,6 +96,8 @@ toio2025/
 | UniTask | https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask |
 | Position ID 一覧 | https://toio.github.io/toio-spec/docs/hardware_position_id/ |
 | 勇者用紙 | https://toio.io/blog/img/dungeon_yusha.pdf |
+| YT-Websocket(b2s) | https://youtu.be/13HnJPstnDM?si=CD8Q8BcD24aP92bi|
+| YT-Websocket(s2c) | https://youtu.be/dSllP4TRJls?si=LU-OIeABzjTeSnwa|
 | FigJam | https://www.figma.com/board/YCiYz0lZdrbkJHFZu2bzKO/toio?node-id=0-1&t=yXRAdM9hlhgMKvSG-1 |
 
 ## 開発チーム向け Tips
