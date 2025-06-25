@@ -88,7 +88,7 @@ toio2025/
 |---------|-----|
 | 技術仕様 | https://toio.github.io/toio-spec/docs/ble_high_precision_tilt_sensor/ |
 | toio SDK for Unity | https://morikatron.com/t4u/ |
-| Unity 推奨ver | https://unity.com/releases/editor/archive |
+| Unity 推奨バージョン | https://unity.com/releases/editor/archive |
 | 実機との接続方法 | https://qiita.com/Teach/items/7bfd47060da4d4aab852 |
 | toio簡単接続 | https://toio.io/do/connect/ |
 | Zadig（Bluetooth） | https://zadig.akeo.ie/#google_vignette |
