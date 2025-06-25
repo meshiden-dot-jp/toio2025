@@ -135,7 +135,7 @@ public class test_1_cs : MonoBehaviour
                     //cube.TurnLedOn(255, 0, 0);
                     collision_count++;
             
-                }
+                } 
                 else if (cubePos == goalPos)
                 {
                     g = true;
