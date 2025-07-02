@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{5723163A-2DC6-9022-6049-C60063D3A21F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "toio-sdk-scripts", "toio-sdk-scripts.csproj", "{CD8BA0D7-ED25-9E67-727A-703A28ED776B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ble-plugin-unity", "ble-plugin-unity.csproj", "{F129ED51-45BE-5F68-49E1-00819F83C335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayMode", "PlayMode.csproj", "{7FA9208E-6297-E1B0-3BA7-9BFA882D167C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditMode", "EditMode.csproj", "{C9137237-C9E2-13F7-3A00-CD0F614E25C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bleplugin-x86_64", "bleplugin-x86_64.csproj", "{1CE402B6-2820-EDF3-1DB9-CF6F0D076776}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5723163A-2DC6-9022-6049-C60063D3A21F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5723163A-2DC6-9022-6049-C60063D3A21F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5723163A-2DC6-9022-6049-C60063D3A21F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5723163A-2DC6-9022-6049-C60063D3A21F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD8BA0D7-ED25-9E67-727A-703A28ED776B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD8BA0D7-ED25-9E67-727A-703A28ED776B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD8BA0D7-ED25-9E67-727A-703A28ED776B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD8BA0D7-ED25-9E67-727A-703A28ED776B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F129ED51-45BE-5F68-49E1-00819F83C335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F129ED51-45BE-5F68-49E1-00819F83C335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F129ED51-45BE-5F68-49E1-00819F83C335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F129ED51-45BE-5F68-49E1-00819F83C335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FA9208E-6297-E1B0-3BA7-9BFA882D167C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FA9208E-6297-E1B0-3BA7-9BFA882D167C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FA9208E-6297-E1B0-3BA7-9BFA882D167C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FA9208E-6297-E1B0-3BA7-9BFA882D167C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9137237-C9E2-13F7-3A00-CD0F614E25C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9137237-C9E2-13F7-3A00-CD0F614E25C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9137237-C9E2-13F7-3A00-CD0F614E25C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9137237-C9E2-13F7-3A00-CD0F614E25C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE402B6-2820-EDF3-1DB9-CF6F0D076776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE402B6-2820-EDF3-1DB9-CF6F0D076776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE402B6-2820-EDF3-1DB9-CF6F0D076776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE402B6-2820-EDF3-1DB9-CF6F0D076776}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
