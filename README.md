@@ -99,7 +99,7 @@ toio2025/
 | YT-Websocket(b2s) | https://youtu.be/13HnJPstnDM?si=CD8Q8BcD24aP92bi|
 | YT-Websocket(s2c) | https://youtu.be/dSllP4TRJls?si=LU-OIeABzjTeSnwa|
 | FigJam | https://www.figma.com/board/YCiYz0lZdrbkJHFZu2bzKO/toio?node-id=0-1&t=yXRAdM9hlhgMKvSG-1 |
-|発表スライド｜ https://docs.google.com/presentation/d/1z3gPs3PFOygyzIpvb_uftH4R1i8mLMdtUQya2otLKoI/edit?usp=sharing |
+| 発表スライド | https://docs.google.com/presentation/d/1z3gPs3PFOygyzIpvb_uftH4R1i8mLMdtUQya2otLKoI/edit?usp=sharing |
 
 ## 開発チーム向け Tips
 
