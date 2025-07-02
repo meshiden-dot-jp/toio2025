@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [position, setPosition] = useState({ x: 0, y: 0, angle: 0 });
+  const [bgColor, setBgColor] = useState("bg-white");
 
   useEffect(() => {
     // ネイティブWebSocketクライアントで接続
@@ -35,6 +36,12 @@ export default function Home() {
     };
   }, []);
 
+  const changeColor = () => {
+    const colors = ["bg-red-500", "bg-green-500", "bg-blue-500", "bg-yellow-500"];
+    const random = colors[Math.floor(Math.random() * colors.length)];
+    setBgColor(random);
+  };
+
   return (
     <div className="flex items-center justify-center w-[70%] h-full mt-[2%] m-auto mb-[0%]">
       <div className="absolute top-[3%] left-12">
@@ -58,7 +65,7 @@ export default function Home() {
         </div>
       </div>
       <div className="grid grid-cols-7 gap-0 w-full m-auto px-4">
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">29</div>
+        <div className={`flex justify-center items-center border w-full aspect-square text-center leading-[3rem] ${changeColor}`}>29</div>
         <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">30</div>
         <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">31</div>
         <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">32</div>
