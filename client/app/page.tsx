@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [position, setPosition] = useState({ x: 0, y: 0, angle: 0 });
+  const [dice, setDice] = useState<number | null>(null);
+  const [remain, setRemain] = useState<number | null>(null);
 
   useEffect(() => {
     // ネイティブWebSocketクライアントで接続
@@ -16,12 +18,17 @@ export default function Home() {
       // バイナリデータとして来た場合
       if (event.data instanceof ArrayBuffer) {
         const floatArray = new Float32Array(event.data);
-        if (floatArray.length === 3) {
+        if (floatArray.length >= 3) {
           setPosition({
             x: floatArray[0],
             y: floatArray[1],
             angle: floatArray[2],
           });
+
+          if (floatArray.length >= 5) {
+            setDice(Math.floor(floatArray[3]));
+            setRemain(Math.floor(floatArray[4]));
+          }
         } else {
           console.warn("想定外の長さの配列:", floatArray);
         }
@@ -104,7 +111,7 @@ export default function Home() {
           </div>
           <div>
             <h3>出目と残り</h3>
-            <p>-/-</p>
+             <p>{dice !== null && remain !== null ? `${dice} / ${remain}` : "- / -"}</p>
           </div>
           <div>
             <h3>スコア</h3>

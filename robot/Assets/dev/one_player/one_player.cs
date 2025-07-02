@@ -18,6 +18,8 @@ public class one_player : MonoBehaviour
     bool i = true;
     Vector2 startPos;
 
+    int totalSteps = 35;
+
 
     async void Start()
     {
@@ -52,7 +54,17 @@ public class one_player : MonoBehaviour
         {
             //Move2Target
             if (intervalTime < elapsedTime) // 0.2s
-            {
+            {   
+                int dice = 0;
+                float shakeValue;
+                do
+                {
+                    shakeValue = GetShakeValue();
+                    dice = Mathf.FloorToInt((shakeValue * 10) % 10);
+                } while (dice > 6&&dice==0);
+                int remain = Mathf.Max(0, totalSteps - dice); // 仮: ゴールまで30歩
+
+                Debug.Log($"出目: {dice}, 残り: {remain}");
                 // Debug.Log("x : " + cube.x + ", y : " + cube.y + ", angle : " + cube.angle);
                 float[] floatArray = new float[] { cube.x, cube.y, cube.angle };
 
@@ -81,7 +93,14 @@ public class one_player : MonoBehaviour
                     i = false;
                 }
             }
-
+            
         }
+    }
+
+    float GetShakeValue()
+    {
+        // 簡易例：cubeの角度の変化から疑似シェイク値を生成（もっと正確にしたい場合はセンサから取得）
+        float pseudoShake = UnityEngine.Random.Range(1f, 7f); // ←仮でランダムな1.0～7.0
+        return pseudoShake;
     }
 }
