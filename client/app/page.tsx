@@ -4,54 +4,70 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [position, setPosition] = useState({ x: 0, y: 0, angle: 0 });
-  const [bgColor, setBgColor] = useState("bg-white");
+  const [highlightedCell, setHighlightedCell] = useState(0);
+  const [passedCells, setPassedCells] = useState<number[]>([]);
+  const [isCounting, setIsCounting] = useState(false);
+
+  const cells = [
+    29, 30, 31, 32, 33, 34, 35,
+    22, 23, 24, 25, 26, 27, 28,
+    15, 16, 17, 18, 19, 20, 21,
+    8, 9, 10, 11, 12, 13, 14,
+    1, 2, 3, 4, 5, 6, 7,
+  ];
 
   useEffect(() => {
-    // ネイティブWebSocketクライアントで接続
     const ws = new WebSocket("ws://localhost:8080");
-
-    // バイナリを受け取る際は "arraybuffer" にする
     ws.binaryType = "arraybuffer";
 
     ws.onmessage = (event) => {
-      // バイナリデータとして来た場合
       if (event.data instanceof ArrayBuffer) {
         const floatArray = new Float32Array(event.data);
         if (floatArray.length === 3) {
-          setPosition({
-            x: floatArray[0],
-            y: floatArray[1],
-            angle: floatArray[2],
-          });
-        } else {
-          console.warn("想定外の長さの配列:", floatArray);
+          const x = floatArray[0];
+          const y = floatArray[1];
+          const angle = floatArray[2];
+
+          setPosition({ x, y, angle });
+
+          // 座標 → マス番号算出
+          const X = Math.floor(1 + ((x - 98) / 42));
+          const Y = Math.floor(5 - ((y - 142) / 42));
+          const add = X + Y * 7;
+
+
+          console.log("add:", add, "r", X, "c", Y, "xy", x, y, "highlightedCell:", highlightedCell);
+
+          if (cells.includes(add)) {
+            setHighlightedCell(add);
+
+            if (!isCounting && add === 1) {
+              setIsCounting(true); 
+            }
+
+            if (isCounting) {
+              setPassedCells((prev) => (prev.includes(add) ? prev : [...prev, add]));
+            }
+          }
         }
-      } else {
-        console.warn("非バイナリデータを受信:", event.data);
+
       }
     };
 
-    return () => {
-      ws.close();
-    };
+    return () => ws.close();
   }, []);
-
-  const changeColor = () => {
-    const colors = ["bg-red-500", "bg-green-500", "bg-blue-500", "bg-yellow-500"];
-    const random = colors[Math.floor(Math.random() * colors.length)];
-    setBgColor(random);
-  };
 
   return (
     <div className="flex items-center justify-center w-[70%] h-full mt-[2%] m-auto mb-[0%]">
+      {/* 左側: toio 情報 */}
       <div className="absolute top-[3%] left-12">
         <h2>toioの情報</h2>
         <div className="grid grid-cols-1 gap-16">
           <div>
             <h3>座標</h3>
             <div className="grid grid-cols-2 gap-0">
-              <p>X:{position.x.toFixed(0)}</p>
-              <p>Y:{position.y.toFixed(0)}</p>
+              <p>X: {position.x.toFixed(0)}</p>
+              <p>Y: {position.y.toFixed(0)}</p>
             </div>
           </div>
           <div>
@@ -64,44 +80,24 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* 中央: マス描画 */}
       <div className="grid grid-cols-7 gap-0 w-full m-auto px-4">
-        <div className={`flex justify-center items-center border w-full aspect-square text-center leading-[3rem] ${changeColor}`}>29</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">30</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">31</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">32</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">33</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">34</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">Goal</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">22</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">23</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">24</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">25</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">26</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">27</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">28</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">15</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">16</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">17</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">18</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">19</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">20</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">21</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">8</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">9</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">10</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">11</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">12</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">13</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">14</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">Start</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">2</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">3</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">4</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">5</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">6</div>
-        <div className="flex justify-center items-center border w-full aspect-square text-center leading-[3rem]">7</div>
+        {cells.map((cell, index) => {
+          const isHighlighted = cell === highlightedCell;
+          return (
+            <div
+              key={index}
+              className={`flex justify-center items-center border w-full aspect-square text-center leading-[3rem] ${isHighlighted ? "bg-yellow-400" : "bg-white"
+                }`}
+            >
+              {cell}
+            </div>
+          );
+        })}
       </div>
 
+      {/* 右側: 1Pの情報 */}
       <div className="absolute top-[3%] right-12 text-right">
         <h2>1Pの情報</h2>
         <div className="grid grid-cols-1 gap-16">
@@ -115,7 +111,7 @@ export default function Home() {
           </div>
           <div>
             <h3>スコア</h3>
-            <p>-</p>
+            <p>{630 - passedCells.reduce((sum, val) => sum + val, 0)}</p>
           </div>
         </div>
       </div>
