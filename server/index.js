@@ -21,7 +21,7 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (data, isBinary) => {
     if (isBinary) {
-      console.log('ws:バイナリデータを受信');
+      // console.log('ws:バイナリデータを受信');
 
       // 全クライアントにそのままバイナリを転送
       wss.clients.forEach((client) => {

@@ -18,7 +18,12 @@ export default function Home() {
   const [highlightedCell, setHighlightedCell] = useState(0);
   const [passedCells, setPassedCells] = useState<number[]>([]);
   const [isCounting, setIsCounting] = useState(false);
-  let isGoal = false;
+  const [isGoal, setIsGoal] = useState(false);
+  let score = 630 - passedCells.reduce((sum, val) => sum + val, 0);
+  const START  = 1;
+  const GOAL = 35;
+  const NONE = 0;
+
   const router = useRouter();
 
   const cells = [
@@ -48,28 +53,25 @@ export default function Home() {
           const X = Math.floor(1 + ((x - 98) / 42));
           const Y = Math.floor(5 - ((y - 142) / 42));
           const add = X + Y * 7;
-
-
-          console.log("add:", add, "r", X, "c", Y, "xy", x, y, "highlightedCell:", highlightedCell);
+          // console.log("add:", add, "r", X, "c", Y, "xy", x, y, "highlightedCell:", highlightedCell);
 
           if (cells.includes(add)) {
             setHighlightedCell(add);
 
-            if (!isCounting && add === 1) {
+            if (!isCounting && add === START && passedCells.length === NONE) {
               setIsCounting(true);
+            }
+
+            if (isCounting && add === GOAL) {
+              setIsCounting(false);
+              setIsGoal(true);
             }
 
             if (isCounting) {
               setPassedCells((prev) => (prev.includes(add) ? prev : [...prev, add]));
             }
           }
-
-          if (add === 35) {
-            isGoal = true;
-            console.log("ゲーム終了");
-            console.log("passedCells:", passedCells);
-            // ここでスコア計算やゲーム終了処理を行う
-          }
+          
         }
 
       }
@@ -132,13 +134,13 @@ export default function Home() {
           </div>
           <div>
             <h3>スコア</h3>
-            <p>{630 - passedCells.reduce((sum, val) => sum + val, 0)}</p>
+            <p>{score}</p>
           </div>
         </div>
       </div>
       {/* ゲーム終了ダイアログ */}
       {isGoal && (
-        <AlertDialog open={true} onOpenChange={() => (isGoal = false)}>
+        <AlertDialog open={true} onOpenChange={() => (setIsGoal(false))}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle className="p-0 text-center text-base">ゲーム終了</AlertDialogTitle>
@@ -146,7 +148,7 @@ export default function Home() {
                 <div className="text-black font-bold text-center space-y-2">
                   <div className="text-2xl pt-4">マイスコア</div>
                   <div className="text-6xl pt-2 pb-8">
-                    {630 - passedCells.reduce((sum, val) => sum + val, 0)}
+                    {score}
                   </div>
                   <table className="table-auto text-left text-sm w-full border border-gray-300 rounded-md overflow-hidden pb-6">
                     <tbody>
@@ -157,7 +159,7 @@ export default function Home() {
                       <tr className="border-b border-gray-200">
                         <th className="px-4 py-2 text-base font-semibold">通過マス</th>
                         <td className="px-4 py-2">
-                          {passedCells.length <= 12
+                          {passedCells.length === START
                             ? "なし"
                             : passedCells.join(", ")}
                         </td>
@@ -165,7 +167,7 @@ export default function Home() {
                       <tr>
                         <th className="px-4 py-2 text-base font-semibold">残りマス</th>
                         <td className="px-4 py-2 pb-4">
-                          {passedCells.length === 35
+                          {passedCells.length === GOAL
                             ? "なし"
                             : cells.filter(cell => !passedCells.includes(cell)).join(", ")}
                         </td>
@@ -187,7 +189,7 @@ export default function Home() {
             <AlertDialogFooter>
               <AlertDialogCancel
                 onClick={() => {
-                  isGoal = false;
+                  setIsGoal(false);
                   router.push("/");
                 }}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg hover:text-white w-full"
@@ -198,6 +200,6 @@ export default function Home() {
           </AlertDialogContent>
         </AlertDialog>
       )}
-    </div>
+    </div >
   );
 }
