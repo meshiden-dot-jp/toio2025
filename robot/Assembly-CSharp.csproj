@@ -72,6 +72,7 @@
     <Compile Include="Assets\toio-sdk\Tutorials\3.Advanced-Navigator\2.NaviAwayTargetScene\NaviAwayTargetTutorial.cs" />
     <Compile Include="Assets\toio-sdk\Samples\Sample_ConnectName\Sample_ConnectName_Property\Sample_ConnectName_Property.cs" />
     <Compile Include="Assets\toio-sdk\Samples\Sample_WebGL\Sample_WebGL_UI\Sample_WebGL_UI.cs" />
+    <Compile Include="Assets\dev\one_player\WallData.cs" />
     <Compile Include="Assets\toio-sdk\Tutorials\3.Advanced-Navigator\1.Navi2TargetScene\Navi2TargetTutorial.cs" />
     <Compile Include="Assets\toio-sdk\Samples\Sample_MultiMat\Sample_MultiMat.cs" />
     <Compile Include="Assets\toio-sdk\Tutorials\1.Basic\7.CubeManager\CubeManagerScene_RawSingle.cs" />
