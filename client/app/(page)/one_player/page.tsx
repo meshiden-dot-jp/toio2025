@@ -27,7 +27,7 @@ export default function Home() {
   const prevCellRef = useRef<number | null>(null); // 前回のマスを保存
   const START  = 1;
   const GOAL = 35;
-  const NONE = 0;
+  const NONE = 0; 
 
   const router = useRouter();
 
