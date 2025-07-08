@@ -99,6 +99,11 @@ public class test_1_cs : MonoBehaviour
             Debug.LogError("WebSocket is not initialized.");
             return;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ws.Send("Space key pressed");
+        }
+
         if (cubeManager.IsControllable(cube) && cubeManager.synced)
         {
             // Debug.Log("x : " + cube.x + ", y : " + cube.y + ", angle : " + cube.angle);
