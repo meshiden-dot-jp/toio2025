@@ -102,7 +102,7 @@ public class test_1_cs : MonoBehaviour
         if (cubeManager.IsControllable(cube) && cubeManager.synced)
         {
             // Debug.Log("x : " + cube.x + ", y : " + cube.y + ", angle : " + cube.angle);
-            float[] floatArray = new float[] { cube.x, cube.y, cube.angle, cube.battery };
+            float[] floatArray = new float[] { cube.x, cube.y, cube.angle, cube.battery,cube.isPressed? 1 : 0 };
 
             // float[] → byte[] に変換（1 float = 4 bytes）
             byte[] byteArray = new byte[floatArray.Length * 4];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/navigation';
 
 import {
@@ -18,8 +18,13 @@ export default function Home() {
   const [highlightedCell, setHighlightedCell] = useState(0);
   const [passedCells, setPassedCells] = useState<number[]>([]);
   const [isCounting, setIsCounting] = useState(false);
+  const isCountingRef = useRef(false);
   const [isGoal, setIsGoal] = useState(false);
   let score = 630 - passedCells.reduce((sum, val) => sum + val, 0);
+  const [diceRoll, setDiceRoll] = useState(0);
+  const [remain, setRemain] = useState(0);
+  const remainRef = useRef(0); // 最新のremainを保持
+  const prevCellRef = useRef<number | null>(null); // 前回のマスを保存
   const START  = 1;
   const GOAL = 35;
   const NONE = 0;
@@ -35,43 +40,72 @@ export default function Home() {
   ];
 
   useEffect(() => {
+    console.log("isCounting (useState) が変更されました:", isCounting);
+  }, [isCounting]);
+
+  useEffect(() => {
     const ws = new WebSocket("ws://localhost:8080");
     ws.binaryType = "arraybuffer";
 
     ws.onmessage = (event) => {
-      if (event.data instanceof ArrayBuffer) {
+       if (event.data instanceof ArrayBuffer) {
         const floatArray = new Float32Array(event.data);
-        if (floatArray.length === 4) {
+        if (floatArray.length === 5) {
           const x = floatArray[0];
           const y = floatArray[1];
           const angle = floatArray[2];
           const battery = floatArray[3];
+          const isPressed = floatArray[4];
 
-          setPosition({ x, y, angle, battery });
+          // console.log(isPressed);
+          if (isPressed === 1) {
+            const roll = Math.floor(Math.random() * 6) + 1;
+            setDiceRoll(roll);
+            setRemain(roll);
+            remainRef.current = roll; // refも更新
+            // console.log("出目:", roll);
+          }
+
+          setPosition({ x, y, angle, battery});
 
           // 座標 → マス番号算出
-          const X = Math.floor(1 + ((x - 98) / 42));
-          const Y = Math.floor(5 - ((y - 142) / 42));
-          const add = X + Y * 7;
+          // 座標 → マス番号算出
+          let X = Math.floor(1 + ((x - 98) / 42));
+          let Y = Math.floor(5 - ((y - 142) / 42));
+          let add = X + Y * 7;
           // console.log("add:", add, "r", X, "c", Y, "xy", x, y, "highlightedCell:", highlightedCell);
+          // console.log("X:", X, "Y:", Y, "add:", add, "isCounting:", isCounting);
 
           if (cells.includes(add)) {
-            setHighlightedCell(add);
 
-            if (!isCounting && add === START && passedCells.length === NONE) {
-              setIsCounting(true);
+            if (prevCellRef.current !== null && prevCellRef.current !== add && remainRef.current > 0) {
+              setRemain((r) => {
+              const newVal = r - 1;
+              remainRef.current = newVal; // refも更新
+              return newVal;
+              });
             }
 
-            if (isCounting && add === GOAL) {
+            // 次回比較用に現在のマスを保存
+            prevCellRef.current = add;
+
+            setHighlightedCell(add);
+            if (!isCountingRef.current && add === START) {
+              setIsCounting(true);
+              isCountingRef.current = true;
+              console.log("STARTに到達、isCountingを開始");
+            }
+
+            if (isCountingRef.current && add === GOAL) {
               setIsCounting(false);
               setIsGoal(true);
             }
 
-            if (isCounting) {
+            if (isCountingRef.current) {
               setPassedCells((prev) => (prev.includes(add) ? prev : [...prev, add]));
             }
           }
-          
+
         }
 
       }
@@ -130,7 +164,7 @@ export default function Home() {
           </div>
           <div>
             <h3>出目と残り</h3>
-            <p>-/-</p>
+            <p>{remain}/{diceRoll}</p>
           </div>
           <div>
             <h3>スコア</h3>
